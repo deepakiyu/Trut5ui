@@ -150,7 +150,7 @@ input[type="number"]:focus {
   background-color: #0027ff;
   color: white;
   padding: 16px;
-  margin-top: 24px; /* 🔽 Lightly pushed down */
+  margin-top: 24px;
   font-size: 16px;
   font-weight: bold;
   border: none;
@@ -172,24 +172,9 @@ input[type="number"]:focus {
   text-align: center;
 }
 
-/* Mobile Optimization */
 @media (max-width: 480px) {
-  .app {
-    padding: 10px;
-  }
-
-  .logo {
-    width: 20px;
-    height: 20px;
-  }
-
-  input[type="number"] {
-    width: 70px;
-    font-size: 16px;
-  }
-
-  .btn {
-    font-size: 15px;
-    padding: 14px;
-  }
+  .app { padding: 10px; }
+  .logo { width: 20px; height: 20px; }
+  input[type="number"] { width: 70px; font-size: 16px; }
+  .btn { font-size: 15px; padding: 14px; }
 }
