@@ -9,10 +9,7 @@
 </head>
 <body>
   <div class="app">
-    <div class="header">
-      Swap
-      <div class="settings">⚙️ 2.29%</div>
-    </div>
+    <div class="header">Swap <div class="settings">⚙️ 2.29%</div></div>
 
     <!-- USDT Input Card -->
     <div class="card">
@@ -26,13 +23,12 @@
         </div>
         <div class="right">
           <div class="buy-label">Buy</div>
-          <input id="usdtInput" type="number" value="200" min="200" />
+          <input id="usdtInput" type="number" value="200" min="200"/>
           <div class="usd-text" id="usdtValue">$200.00</div>
         </div>
       </div>
     </div>
 
-    <!-- Swap Icon -->
     <div class="swap-icon">⇅</div>
 
     <!-- BTC Output Card -->
@@ -46,29 +42,24 @@
           </div>
         </div>
         <div class="right">
-          <div class="btc-value" id="btcValue">0.00506297</div>
+          <div class="btc-value" id="btcAmount">0.00506000</div>
           <div class="btc-usd" id="btcUsd">$600.00 <span class="red">(-1%)</span></div>
         </div>
       </div>
-      <div class="info-line">1 BTC ≈ 119,489.153599 USDT</div>
+      <div class="info-line" id="rateLine">1 BTC ≈ 119,489.153599 USDT</div>
     </div>
 
     <!-- Provider Info Card -->
     <div class="card">
       <div class="provider-info">
         <div class="left">Provider Fee</div>
-        <div class="right">
-          <div class="fee-text">$0.50</div>
-          <div class="fee-sub">0.00014344 BNB</div>
-        </div>
+        <div class="right"><div class="fee-text">$0.50</div><div class="fee-sub">0.00014344 BNB</div></div>
       </div>
       <div class="provider-info">
-        <div class="left">Provider</div>
-        <div class="right">0x</div>
+        <div class="left">Provider</div><div class="right">0x</div>
       </div>
     </div>
 
-    <!-- Continue Button -->
     <button class="btn">Continue</button>
   </div>
 
