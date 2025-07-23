@@ -1,0 +1,104 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  color: #000;
+}
+
+.app {
+  max-width: 420px;
+  margin: auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.settings {
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  background-color: #eee;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.card {
+  border-radius: 16px;
+  background: #f9f9f9;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.token-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.token-row .right {
+  text-align: right;
+}
+
+.token-row .token {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.swap-icon {
+  text-align: center;
+  font-size: 24px;
+  margin: 10px 0;
+}
+
+.btc-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+}
+
+.btc-value span {
+  font-size: 14px;
+  color: red;
+  font-weight: normal;
+}
+
+.provider-fee, .provider-address {
+  font-size: 14px;
+  margin: 4px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  background-color: #0027ff;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.info-text {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
