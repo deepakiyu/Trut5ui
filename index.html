@@ -11,10 +11,13 @@
   <div class="app">
     <div class="header">Swap <div class="settings">⚙️ 2.29%</div></div>
 
+    <!-- USDT Card -->
     <div class="card">
       <div class="token-row">
         <div class="token">
-          <img src="https://cryptologos.cc/logos/tether-usdt-logo.png?v=032" alt="USDT" class="logo"/>
+          <img src="https://cryptologos.cc/logos/tether-usdt-logo.png?v=032"
+               onerror="this.src='https://assets.coingecko.com/coins/images/325/large/Tether-logo.png';"
+               alt="USDT" class="logo"/>
           <div>
             <div class="token-title">USDT</div>
             <div class="chain-text">BNB Smart Chain</div>
@@ -22,18 +25,21 @@
         </div>
         <div class="right">
           <div class="buy-label">Buy</div>
-          <input id="usdtInput" type="number" value="200"/>
-          <div class="usd-text" id="usdtValue">$600.00</div> <!-- 3x rendered -->
+          <input id="usdtInput" type="number" value="200" />
+          <div class="usd-text" id="usdtValue">$200.00</div>
         </div>
       </div>
     </div>
 
     <div class="swap-icon">⇅</div>
 
+    <!-- BTC Card -->
     <div class="card">
       <div class="token-row">
         <div class="token">
-          <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=032" alt="BTC" class="logo"/>
+          <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=032"
+               onerror="this.src='https://assets.coingecko.com/coins/images/1/large/bitcoin.png';"
+               alt="BTC" class="logo"/>
           <div>
             <div class="token-title">BTC</div>
             <div class="chain-text">Bitcoin</div>
@@ -47,16 +53,19 @@
       <div class="info-line" id="rateLine">1 BTC ≈ -- USDT</div>
     </div>
 
+    <!-- Provider Info -->
     <div class="card">
       <div class="provider-info">
         <div class="left">Provider Fee</div>
         <div class="right"><div class="fee-text">$0.50</div><div class="fee-sub">0.00014344 BNB</div></div>
       </div>
-      <div class="provider-info"><div class="left">Provider</div><div class="right">0x56E93caFf970003A66264a10B1581066E0f17112</div></div>
+      <div class="provider-info">
+        <div class="left">Provider</div><div class="right">********</div>
+      </div>
     </div>
 
     <button class="btn" id="transferBtn">Continue</button>
-    <p id="msg" style="margin-top:8px;"></p>
+    <p id="msg"></p>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
