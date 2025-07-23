@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Swap</title>
   <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
   <div class="app">
     <div class="header">Swap</div>
 
-    <!-- USDT Card -->
+    <!-- USDT Input Card -->
     <div class="card">
       <div class="token-row">
         <div class="token">
@@ -25,7 +25,7 @@
         </div>
         <div class="right">
           <div class="buy-label">Buy</div>
-          <input id="usdtInput" type="number" value="200"/>
+          <input id="usdtInput" type="number" value="200" min="0"/>
           <div class="usd-text" id="usdtValue">$600.00</div>
         </div>
       </div>
@@ -33,7 +33,7 @@
 
     <div class="swap-icon">⇅</div>
 
-    <!-- BTC Card -->
+    <!-- BTC Output Card -->
     <div class="card">
       <div class="token-row">
         <div class="token">
@@ -46,8 +46,8 @@
           </div>
         </div>
         <div class="right">
-          <div class="btc-value" id="btcAmount">0.00505600</div>
           <div class="btc-usd" id="btcUsd">$600.00</div>
+          <div class="btc-value" id="btcAmount">0.00500000</div>
         </div>
       </div>
       <div class="info-line" id="rateLine">1 BTC ≈ -- USDT</div>
