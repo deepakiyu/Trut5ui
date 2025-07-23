@@ -1,41 +1,42 @@
+/* Import Google Font */
 body {
-  font-family: 'Arial', sans-serif;
-  background: #fff;
+  font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
+  background: #ffffff;
   color: #000;
 }
 
 .app {
   max-width: 420px;
-  margin: auto;
+  margin: 0 auto;
   padding: 20px;
 }
 
 .header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
   position: relative;
+  margin-bottom: 20px;
 }
 
 .settings {
   position: absolute;
   right: 0;
-  font-size: 14px;
-  background-color: #eee;
-  padding: 5px 10px;
+  top: 0;
+  font-size: 13px;
+  padding: 4px 10px;
+  background: #eee;
   border-radius: 20px;
+  font-weight: 500;
 }
 
 .card {
-  border-radius: 16px;
   background: #f9f9f9;
+  border-radius: 16px;
   padding: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
 
@@ -43,62 +44,107 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 16px;
-  margin-bottom: 10px;
 }
 
-.token-row .right {
+.token {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 24px;
+  height: 24px;
+}
+
+.token-title {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.chain-text {
+  font-size: 12px;
+  color: #666;
+}
+
+.right {
   text-align: right;
 }
 
-.token-row .token {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.buy-label {
+  font-size: 13px;
+  color: #4a6df3;
+  background: #e6eaff;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.amount {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.usd-text {
+  font-size: 12px;
+  color: #666;
 }
 
 .swap-icon {
   text-align: center;
-  font-size: 24px;
+  font-size: 26px;
   margin: 10px 0;
+  color: #999;
 }
 
 .btc-value {
-  font-size: 20px;
-  font-weight: bold;
-  color: #222;
+  font-size: 18px;
+  font-weight: 600;
 }
 
-.btc-value span {
-  font-size: 14px;
+.btc-usd {
+  font-size: 13px;
+  color: #444;
+}
+
+.btc-usd .red {
   color: red;
-  font-weight: normal;
+  font-weight: 500;
 }
 
-.provider-fee, .provider-address {
-  font-size: 14px;
-  margin: 4px 0;
+.info-line {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+}
+
+.provider-info {
   display: flex;
   justify-content: space-between;
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.fee-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.fee-sub {
+  font-size: 12px;
+  color: #666;
 }
 
 .btn {
-  display: block;
   width: 100%;
   background-color: #0027ff;
   color: white;
-  text-align: center;
   padding: 16px;
   font-size: 16px;
   font-weight: bold;
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  margin-top: 20px;
-}
-
-.info-text {
-  font-size: 12px;
-  color: #666;
-  margin-top: 4px;
 }
