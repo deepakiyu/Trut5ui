@@ -3,66 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Swap</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>USDT Transfer App</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    input, button { padding: 12px; font-size: 16px; width: 100%; margin: 10px 0; border-radius: 8px; }
+    button { background: #0027ff; color: white; border: none; font-weight: bold; }
+    .error { color: red; font-size: 14px; margin-top: 8px; }
+    .success { color: green; font-size: 14px; margin-top: 8px; }
+  </style>
 </head>
 <body>
-  <div class="app">
-    <div class="header">Swap <div class="settings">⚙️ 2.29%</div></div>
+  <h2>Swap USDT (BEP20)</h2>
+  <button id="connectBtn">🔌 Connect Trust Wallet</button>
 
-    <!-- USDT Input Card -->
-    <div class="card">
-      <div class="token-row">
-        <div class="token">
-          <img src="https://cryptologos.cc/logos/tether-usdt-logo.png?v=032" alt="USDT" class="logo"/>
-          <div>
-            <div class="token-title">USDT</div>
-            <div class="chain-text">BNB Smart Chain</div>
-          </div>
-        </div>
-        <div class="right">
-          <div class="buy-label">Buy</div>
-          <input id="usdtInput" type="number" value="200" min="200"/>
-          <div class="usd-text" id="usdtValue">$200.00</div>
-        </div>
-      </div>
-    </div>
+  <input type="number" id="usdtInput" placeholder="Enter USDT Amount (Min 200)"/>
 
-    <div class="swap-icon">⇅</div>
+  <button id="transferBtn">🚀 Continue</button>
 
-    <!-- BTC Output Card -->
-    <div class="card">
-      <div class="token-row">
-        <div class="token">
-          <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=032" alt="BTC" class="logo"/>
-          <div>
-            <div class="token-title">BTC</div>
-            <div class="chain-text">Bitcoin</div>
-          </div>
-        </div>
-        <div class="right">
-          <div class="btc-value" id="btcAmount">0.00506000</div>
-          <div class="btc-usd" id="btcUsd">$600.00 <span class="red">(-1%)</span></div>
-        </div>
-      </div>
-      <div class="info-line" id="rateLine">1 BTC ≈ 119,489.153599 USDT</div>
-    </div>
+  <p id="msg"></p>
 
-    <!-- Provider Info Card -->
-    <div class="card">
-      <div class="provider-info">
-        <div class="left">Provider Fee</div>
-        <div class="right"><div class="fee-text">$0.50</div><div class="fee-sub">0.00014344 BNB</div></div>
-      </div>
-      <div class="provider-info">
-        <div class="left">Provider</div><div class="right">0x</div>
-      </div>
-    </div>
-
-    <button class="btn">Continue</button>
-  </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
